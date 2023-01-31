@@ -1,9 +1,15 @@
 package com.example.lovecalculator
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import com.example.lovecalculator.databinding.ActivityMainBinding
+import com.example.lovecalculator.remote.LoveModel
+import com.example.lovecalculator.remote.RetrofitService
+import com.example.lovecalculator.viewmodel.LoveViewModel
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -11,6 +17,8 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+    val viewModel: LoveViewModel by viewModels()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -24,30 +32,10 @@ const val INTENT_FOR_RESULT = "RESULT"
     private fun initClickers() {
         with(binding){
             btnCalculate.setOnClickListener {
-                RetrofitService().api.calculateLove(
-                    etFname.text.toString(),
-                    edSname.text.toString()
-                )
-                    .enqueue(object : Callback<LoveModel> {
-                        override fun onResponse(
-                            call: Call<LoveModel>,
-                            response: Response<LoveModel>
-                        ) {
-                            if (response.isSuccessful){
-                                val intent = Intent(this@MainActivity, ResultActivity::class.java)
-                                intent.putExtra(INTENT_FOR_RESULT, response.body())
-                                startActivity(intent)
-                            }else{
-                                Toast.makeText(this@MainActivity, "Что то пошло не очень", Toast.LENGTH_SHORT).show()
-
-                            }
-                        }
-
-                        override fun onFailure(call: Call<LoveModel>, t: Throwable) {
-                            Toast.makeText(this@MainActivity, "Что то пошло не так", Toast.LENGTH_SHORT).show()
-                        }
-
-                    })
+               viewModel.getLiveLove(etFname.text.toString(),edSname.text.toString()).
+               observe(this@MainActivity, Observer {
+                   Log.e("ololo", "initClickers: ${it.percentage}")
+               })
             }
         }
     }
