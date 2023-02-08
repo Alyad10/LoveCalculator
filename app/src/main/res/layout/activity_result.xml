@@ -6,25 +6,30 @@
     android:background="#D65480"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ResultActivity">
-
-    <TextView
-        android:id="@+id/result"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="100"
-        android:textColor="#E82112"
-        android:textSize="40sp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/animationView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:lottie_rawRes="@raw/result_hearts"
-        app:layout_constraintTop_toTopOf="parent"
-        app:lottie_autoPlay="true"
-        app:lottie_loop="true"/>
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_result"/>
+<!--    <TextView-->
+<!--       android:id="@+id/result"-->
+<!--       android:layout_width="wrap_content"-->
+<!--       android:layout_height="wrap_content"-->
+<!--    android:text="100"-->
+<!--       android:textColor="#E82112"-->
+<!--    android:textSize="40sp"-->
+<!--       app:layout_constraintTop_toTopOf="parent"-->
+<!--       app:layout_constraintStart_toStartOf="parent"-->
+<!--       app:layout_constraintEnd_toEndOf="parent"-->
+<!--      app:layout_constraintBottom_toBottomOf="parent"/>-->
+<!--    <com.airbnb.lottie.LottieAnimationView-->
+<!--        android:id="@+id/animationView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:lottie_rawRes="@raw/result_hearts"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:lottie_autoPlay="true"-->
+<!--        app:lottie_loop="true"/>-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
